@@ -42,6 +42,9 @@
 import { reactive } from "vue";
 import axios from "axios";
 import { notification } from "ant-design-vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const loginform = reactive({
   mobile: "17751111829",
@@ -79,6 +82,8 @@ const login = () => {
     if (data.success) {
       notification.success({ description: "登录成功！" });
       console.log("登陆成功：", data.content);
+      //登录成功，跳到控制主页
+      router.push("/");
     } else {
       notification.error({ description: data.message });
     }
