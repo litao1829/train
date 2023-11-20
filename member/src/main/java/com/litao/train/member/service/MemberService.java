@@ -7,6 +7,7 @@ import com.litao.train.member.domain.Member;
 import com.litao.train.member.domain.MemberExample;
 import com.litao.train.member.mapper.MemberMapper;
 import com.litao.train.member.req.MemberRegisterReq;
+import com.litao.util.SnowUtil;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +32,7 @@ public class MemberService {
         }
 
         Member member=new Member();
-        member.setId(System.currentTimeMillis());
+        member.setId(SnowUtil.getSnowflakeNextId());
         member.setMobile(mobile);
         memberMapper.insert(member);
         return member.getId();
