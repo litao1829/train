@@ -21,6 +21,7 @@ public class ControllerExceptionHandler {
         CommonResp<?> commonResp =new CommonResp<>();
         LOG.error("系统异常：",e);
         commonResp.setSuccess(false);
+        commonResp.setSuccess(false);
         commonResp.setMessage(e.getMessage());
         return commonResp;
     }
