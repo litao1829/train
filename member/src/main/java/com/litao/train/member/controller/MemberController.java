@@ -2,6 +2,7 @@ package com.litao.train.member.controller;
 
 import com.litao.resp.CommonResp;
 import com.litao.train.member.req.MemberRegisterReq;
+import com.litao.train.member.req.MemberSendCodeReq;
 import com.litao.train.member.service.MemberService;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
@@ -28,4 +29,9 @@ public class MemberController {
         return new CommonResp<>(register);
     }
 
+    @PostMapping("/send-code")
+    public CommonResp<Long> sendCode(@Valid MemberSendCodeReq req){
+        memberService.sendCode(req);
+        return new CommonResp<>();
+    }
 }
