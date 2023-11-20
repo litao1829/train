@@ -1,5 +1,7 @@
 package com.litao.train.member.controller;
 
+import com.litao.resp.CommonResp;
+import com.litao.train.member.req.MemberRegisterReq;
 import com.litao.train.member.service.MemberService;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +22,9 @@ public class MemberController {
     }
 
     @PostMapping("/register")
-    public long register(String mobile){
-        return memberService.register(mobile);
+    public CommonResp<Long> register(MemberRegisterReq req){
+        long register = memberService.register(req);
+        return new CommonResp<>(register);
     }
 
 }
