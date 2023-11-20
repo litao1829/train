@@ -58,7 +58,7 @@ const onFinishFailed = (errorInfo) => {
 
 const sendCode = () => {
   axios
-    .post("http://localhost:8000/member/member/send-code", {
+    .post("/member/member/send-code", {
       mobile: loginform.mobile,
     })
     .then((response) => {
@@ -74,17 +74,15 @@ const sendCode = () => {
 };
 
 const login = () => {
-  axios
-    .post("http://localhost:8000/member/member/login", loginform)
-    .then((response) => {
-      let data = response.data;
-      if (data.success) {
-        notification.success({ description: "登录成功！" });
-        console.log("登陆成功：", data.content);
-      } else {
-        notification.error({ description: data.message });
-      }
-    });
+  axios.post("/member/member/login", loginform).then((response) => {
+    let data = response.data;
+    if (data.success) {
+      notification.success({ description: "登录成功！" });
+      console.log("登陆成功：", data.content);
+    } else {
+      notification.error({ description: data.message });
+    }
+  });
 };
 </script>
 
