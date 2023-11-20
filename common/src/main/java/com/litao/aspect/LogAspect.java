@@ -1,4 +1,4 @@
-package com.litao.train.member.aspect;
+package com.litao.aspect;
 
 import cn.hutool.core.util.RandomUtil;
 import com.alibaba.fastjson.JSONObject;
