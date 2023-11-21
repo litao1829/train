@@ -1,6 +1,6 @@
 package com.litao.train.member.controller;
 
-import com.litao.train.common.context.LoginMemberContext;
+import com.litao.context.LoginMemberContext;
 import com.litao.train.common.resp.CommonResp;
 import com.litao.train.common.resp.PageResp;
 import com.litao.train.member.req.${Domain}QueryReq;
