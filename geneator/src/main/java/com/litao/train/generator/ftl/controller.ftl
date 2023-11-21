@@ -1,12 +1,12 @@
-package com.litao.train.member.controller;
+package com.litao.train.${module}.controller;
 
 import com.litao.context.LoginMemberContext;
 import com.litao.train.common.resp.CommonResp;
 import com.litao.train.common.resp.PageResp;
-import com.litao.train.member.req.${Domain}QueryReq;
-import com.litao.train.member.req.${Domain}SaveReq;
-import com.litao.train.member.resp.${Domain}QueryResp;
-import com.litao.train.member.service.${Domain}Service;
+import com.litao.train.${module}.req.${Domain}QueryReq;
+import com.litao.train.${module}.req.${Domain}SaveReq;
+import com.litao.train.${module}.resp.${Domain}QueryResp;
+import com.litao.train.${module}.service.${Domain}Service;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;

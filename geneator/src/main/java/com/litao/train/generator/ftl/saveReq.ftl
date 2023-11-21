@@ -1,4 +1,4 @@
-package com.litao.train.member.req;
+package com.litao.train.${module}.req;
 
 <#list typeSet as type>
     <#if type=='Date'>

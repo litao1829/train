@@ -1,4 +1,4 @@
-package com.litao.train.member.service;
+package com.litao.train.${module}.service;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
@@ -8,12 +8,12 @@ import com.github.pagehelper.PageInfo;
 import com.litao.context.LoginMemberContext;
 import com.litao.resp.PageResp;
 import com.litao.util.SnowUtil;
-import com.litao.train.member.domain.${Domain};
-import com.litao.train.member.domain.${Domain}Example;
-import com.litao.train.member.mapper.${Domain}Mapper;
-import com.litao.train.member.req.${Domain}QueryReq;
-import com.litao.train.member.req.${Domain}SaveReq;
-import com.litao.train.member.resp.${Domain}QueryResp;
+import com.litao.train.${module}.domain.${Domain};
+import com.litao.train.${module}.domain.${Domain}Example;
+import com.litao.train.${module}.mapper.${Domain}Mapper;
+import com.litao.train.${module}.req.${Domain}QueryReq;
+import com.litao.train.${module}.req.${Domain}SaveReq;
+import com.litao.train.${module}.resp.${Domain}QueryResp;
 import jakarta.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
