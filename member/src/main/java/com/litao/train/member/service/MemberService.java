@@ -12,6 +12,7 @@ import com.litao.train.member.req.MemberLoginReq;
 import com.litao.train.member.req.MemberRegisterReq;
 import com.litao.train.member.req.MemberSendCodeReq;
 import com.litao.train.member.resp.MemberLoginResp;
+import com.litao.util.JwtUtil;
 import com.litao.util.SnowUtil;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -86,7 +87,10 @@ public class MemberService {
         if (!("8888".equals(code))) {
             throw new BusinessException(BusinessExceptionEnum.MEMBER_MOBILE_CODE_ERROR);
         }
-        return BeanUtil.copyProperties(memberDB, MemberLoginResp.class);
+        MemberLoginResp loginResp = BeanUtil.copyProperties(memberDB, MemberLoginResp.class);
+        String token = JwtUtil.createToken(loginResp.getId(), loginResp.getMobile());
+        loginResp.setToken(token);
+        return loginResp;
     }
 
 
