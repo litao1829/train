@@ -1,6 +1,7 @@
 <template>
   <a-layout-header class="header">
-    <div class="logo">
+    <div class="logo"></div>
+    <div style="float: right; color: white">
       您好：{{ member.mobile }}
       <router-link to="/login">退出登录</router-link>
     </div>
@@ -26,9 +27,4 @@ let member = store.state.member;
 const selectedKeys1 = ref(["2"]);
 </script>
 
-<style scoped>
-.logo {
-  color: aliceblue;
-  float: left;
-}
-</style>
+<style scoped></style>
