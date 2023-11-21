@@ -15,62 +15,61 @@ import com.litao.train.member.req.PassengerSaveReq;
 import com.litao.train.member.resp.PassengerQueryResp;
 import com.litao.util.SnowUtil;
 import jakarta.annotation.Resource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class PassengerService {
-
-    private static final Logger LOG = LoggerFactory.getLogger(PassengerService.class);
+@Slf4j
+public class PassengerService1 {
 
     @Resource
     private PassengerMapper passengerMapper;
 
-    public void save(PassengerSaveReq req) {
-        DateTime now = DateTime.now();
+
+    public void save(PassengerSaveReq req){
+        DateTime now=DateTime.now();
         Passenger passenger = BeanUtil.copyProperties(req, Passenger.class);
-        if (ObjectUtil.isNull(passenger.getId())) {
-            passenger.setMemberId(LoginMemberContext.getId());
+        passenger.setMemberId(LoginMemberContext.getId());
+        if(ObjectUtil.isNull(passenger.getId())){
             passenger.setId(SnowUtil.getSnowflakeNextId());
-            passenger.setCreateTime(now);
             passenger.setUpdateTime(now);
+            passenger.setCreateTime(now);
             passengerMapper.insert(passenger);
-        } else {
+        }
+        else{
             passenger.setUpdateTime(now);
             passengerMapper.updateByPrimaryKey(passenger);
         }
+
     }
 
-    public PageResp<PassengerQueryResp> queryList(PassengerQueryReq req) {
-        PassengerExample passengerExample = new PassengerExample();
-        passengerExample.setOrderByClause("id desc");
-        PassengerExample.Criteria criteria = passengerExample.createCriteria();
-        if (ObjectUtil.isNotNull(req.getMemberId())) {
+
+    public PageResp<PassengerQueryResp> queryList(PassengerQueryReq req){
+        PassengerExample example=new PassengerExample();
+        example.setOrderByClause("id desc");
+        PassengerExample.Criteria criteria = example.createCriteria();
+        if(ObjectUtil.isNotNull(req.getMemberId())){
             criteria.andMemberIdEqualTo(req.getMemberId());
         }
-
-        LOG.info("查询页码：{}", req.getPage());
-        LOG.info("每页条数：{}", req.getSize());
+        log.info("查询页码：{}",req.getPage());
+        log.info("每页条数：{}",req.getSize());
         PageHelper.startPage(req.getPage(), req.getSize());
-        List<Passenger> passengerList = passengerMapper.selectByExample(passengerExample);
+        List<Passenger> passengers = passengerMapper.selectByExample(example);
 
-        PageInfo<Passenger> pageInfo = new PageInfo<>(passengerList);
-        LOG.info("总行数：{}", pageInfo.getTotal());
-        LOG.info("总页数：{}", pageInfo.getPages());
+        PageInfo<Passenger> pageInfo=new PageInfo<>(passengers);
+        log.info("总行数：{}",pageInfo.getTotal());
+        log.info("总页数：{}",req.getPage());
+        List<PassengerQueryResp> queryResps = BeanUtil.copyToList(passengers, PassengerQueryResp.class);
+        PageResp<PassengerQueryResp> pageResp=new PageResp<>();
 
-        List<PassengerQueryResp> list = BeanUtil.copyToList(passengerList, PassengerQueryResp.class);
-
-        PageResp<PassengerQueryResp> pageResp = new PageResp<>();
         pageResp.setTotal(pageInfo.getTotal());
-        pageResp.setList(list);
+        pageResp.setList(queryResps);
         return pageResp;
     }
 
-    public void delete(Long id) {
+    public void delete(Long id){
         passengerMapper.deleteByPrimaryKey(id);
     }
-
 }

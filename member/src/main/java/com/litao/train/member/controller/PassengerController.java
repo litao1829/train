@@ -1,5 +1,6 @@
 package com.litao.train.member.controller;
 
+
 import com.litao.context.LoginMemberContext;
 import com.litao.resp.CommonResp;
 import com.litao.resp.PageResp;
@@ -11,9 +12,6 @@ import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
-import javax.security.auth.login.LoginContext;
-import java.util.List;
-
 @RestController
 @RequestMapping("/passenger")
 public class PassengerController {
@@ -22,20 +20,20 @@ public class PassengerController {
     private PassengerService passengerService;
 
     @PostMapping("/save")
-    public CommonResp<Object> save(@Valid @RequestBody PassengerSaveReq req){
+    public CommonResp<Object> save(@Valid @RequestBody PassengerSaveReq req) {
         passengerService.save(req);
         return new CommonResp<>();
     }
 
     @GetMapping("/query-list")
-    public CommonResp<PageResp<PassengerQueryResp>> querList(@Valid PassengerQueryReq req){
+    public CommonResp<PageResp<PassengerQueryResp>> queryList(@Valid PassengerQueryReq req) {
         req.setMemberId(LoginMemberContext.getId());
-        PageResp<PassengerQueryResp> resps = passengerService.queryList(req);
-        return new CommonResp<>(resps);
+        PageResp<PassengerQueryResp> list = passengerService.queryList(req);
+        return new CommonResp<>(list);
     }
 
-    @DeleteMapping("/deleted/{id}")
-    public CommonResp<Object> delete(@PathVariable Long id){
+    @DeleteMapping("/delete/{id}")
+    public CommonResp<Object> delete(@PathVariable Long id) {
         passengerService.delete(id);
         return new CommonResp<>();
     }
