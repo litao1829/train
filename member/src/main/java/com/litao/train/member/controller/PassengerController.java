@@ -2,6 +2,7 @@ package com.litao.train.member.controller;
 
 import com.litao.context.LoginMemberContext;
 import com.litao.resp.CommonResp;
+import com.litao.resp.PageResp;
 import com.litao.train.member.req.PassengerQueryReq;
 import com.litao.train.member.req.PassengerSaveReq;
 import com.litao.train.member.resp.PassengerQueryResp;
@@ -27,9 +28,9 @@ public class PassengerController {
     }
 
     @GetMapping("/query-list")
-    public CommonResp<List<PassengerQueryResp>> querList(@Valid PassengerQueryReq req){
+    public CommonResp<PageResp<PassengerQueryResp>> querList(@Valid PassengerQueryReq req){
         req.setMemberId(LoginMemberContext.getId());
-        List<PassengerQueryResp> resps = passengerService.queryList(req);
+        PageResp<PassengerQueryResp> resps = passengerService.queryList(req);
         return new CommonResp<>(resps);
     }
 }
