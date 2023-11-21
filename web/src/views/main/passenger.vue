@@ -47,9 +47,6 @@
       :label-col="{ span: 4 }"
       :wrapper-col="{ span: 20 }"
     >
-      <a-form-item label="会员id">
-        <a-input v-model:value="passenger.memberId" />
-      </a-form-item>
       <a-form-item label="姓名">
         <a-input v-model:value="passenger.name" />
       </a-form-item>
