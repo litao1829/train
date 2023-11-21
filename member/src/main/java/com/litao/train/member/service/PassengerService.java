@@ -42,6 +42,7 @@ public class PassengerService {
 
     public PageResp<PassengerQueryResp> queryList(PassengerQueryReq req){
         PassengerExample example=new PassengerExample();
+        example.setOrderByClause("id desc");
         PassengerExample.Criteria criteria = example.createCriteria();
         if(ObjectUtil.isNotNull(req.getMemberId())){
             criteria.andMemberIdEqualTo(req.getMemberId());
