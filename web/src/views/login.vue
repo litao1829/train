@@ -39,38 +39,38 @@
 </template>
 
 <script setup>
-import { reactive } from "vue";
-import axios from "axios";
-import { notification } from "ant-design-vue";
-import { useRouter } from "vue-router";
-import store from "@/store";
+import { reactive } from 'vue';
+import axios from 'axios';
+import { notification } from 'ant-design-vue';
+import { useRouter } from 'vue-router';
+import store from '@/store';
 
 const router = useRouter();
 
 const loginform = reactive({
-  mobile: "17751111829",
-  code: "",
+  mobile: '17751111829',
+  code: ''
 });
 
 const onFinish = (values) => {
-  console.log("Success:", values);
+  console.log('Success:', values);
 };
 
 const onFinishFailed = (errorInfo) => {
-  console.log("Failed:", errorInfo);
+  console.log('Failed:', errorInfo);
 };
 
 const sendCode = () => {
   axios
-    .post("/member/member/send-code", {
-      mobile: loginform.mobile,
+    .post('/member/member/send-code', {
+      mobile: loginform.mobile
     })
     .then((response) => {
       console.log(response);
       let data = response.data;
       if (data.success) {
-        notification.success({ description: "发送验证码成功！" });
-        loginform.code = "8888";
+        notification.success({ description: '发送验证码成功！' });
+        loginform.code = '8888';
       } else {
         notification.error({ description: data.message });
       }
@@ -78,14 +78,14 @@ const sendCode = () => {
 };
 
 const login = () => {
-  axios.post("/member/member/login", loginform).then((response) => {
+  axios.post('/member/member/login', loginform).then((response) => {
     let data = response.data;
     if (data.success) {
-      notification.success({ description: "登录成功！" });
-      console.log("登陆成功：", data.content);
+      notification.success({ description: '登录成功！' });
+      console.log('登陆成功：', data.content);
       //登录成功，跳到控制主页
-      router.push("/");
-      store.commit("setMember", data.content);
+      router.push('/welcome');
+      store.commit('setMember', data.content);
     } else {
       notification.error({ description: data.message });
     }
