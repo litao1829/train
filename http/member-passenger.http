@@ -1,0 +1,10 @@
+POST http://localhost:8000/member/passenger/save
+Content-Type: application/json
+token:{{token}}
+
+{
+  "memberId": "1",
+  "name": "",
+  "idCard": "123456789",
+  "type": "1"
+}

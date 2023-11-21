@@ -1,24 +1,24 @@
-import { createRouter, createWebHistory } from "vue-router";
-import store from "@/store";
-import { notification } from "ant-design-vue";
+import { createRouter, createWebHistory } from 'vue-router';
+import store from '@/store';
+import { notification } from 'ant-design-vue';
 
 const routes = [
   {
-    path: "/login",
-    component: () => import("../views/login.vue"),
+    path: '/login',
+    component: () => import('../views/login.vue')
   },
   {
-    path: "/",
-    component: () => import("../views/main.vue"),
+    path: '/',
+    component: () => import('../views/main.vue'),
     meta: {
-      loginReuire: true,
-    },
-  },
+      loginReuire: true
+    }
+  }
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes,
+  routes
 });
 
 //路由登录拦截
@@ -26,16 +26,16 @@ router.beforeEach((to, from, next) => {
   //要不要对meta.loginRequire属性做监控拦截
   if (
     to.matched.some(function (item) {
-      console.log(item, "是否需要登录校验：", item.meta.loginReuire || false);
+      console.log(item, '是否需要登录校验：', item.meta.loginReuire || false);
       return item.meta.loginReuire;
     })
   ) {
     const _member = store.state.member;
-    console.log("页面登录校验开始:", _member);
+    console.log('页面登录校验开始:', _member);
     if (!_member.token) {
-      console.log("用户未登录或登录超时!");
-      notification.error({ description: "未登录或登录超时" });
-      next("/login");
+      console.log('用户未登录或登录超时!');
+      notification.error({ description: '未登录或登录超时' });
+      next('/login');
     } else {
       next();
     }

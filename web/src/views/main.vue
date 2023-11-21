@@ -14,7 +14,7 @@
             background: '#fff',
             padding: '24px',
             margin: 0,
-            minHeight: '280px',
+            minHeight: '280px'
           }"
           >所有会员总数：{{ count }}
         </a-layout-content>
@@ -24,15 +24,15 @@
 </template>
 
 <script setup>
-import TheHeaderView from "@/components/the-header";
-import TheSiderView from "@/components/the-sider.vue";
-// import axios from "axios";
-import { ref } from "vue";
+import TheHeaderView from '@/components/the-header';
+import TheSiderView from '@/components/the-sider.vue';
+import axios from 'axios';
+import { ref } from 'vue';
 
 const count = ref(0);
-// axios.get("/member/member/count").then((response) => {
-//   count.value = response.data;
-// });
+axios.get('/member/member/count').then((response) => {
+  count.value = response.data;
+});
 </script>
 
 <style scoped>
