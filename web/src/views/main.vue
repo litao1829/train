@@ -16,7 +16,7 @@
             margin: 0,
             minHeight: '280px',
           }"
-          >Content
+          >所有会员总数：{{ count }}
         </a-layout-content>
       </a-layout>
     </a-layout>
@@ -26,6 +26,13 @@
 <script setup>
 import TheHeaderView from "@/components/the-header";
 import TheSiderView from "@/components/the-sider.vue";
+import axios from "axios";
+import { ref } from "vue";
+
+const count = ref(0);
+axios.get("/member/member/count").then((response) => {
+  count.value = response.data;
+});
 </script>
 
 <style scoped>
