@@ -1,6 +1,5 @@
 package com.litao.train.member.controller;
 
-
 import com.litao.context.LoginMemberContext;
 import com.litao.resp.CommonResp;
 import com.litao.resp.PageResp;
