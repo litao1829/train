@@ -1,7 +1,11 @@
 <template>
   <p>
     <a-space>
-      <a-button type="primary" @click="handleQuery()">刷新</a-button>
+      <train-select-view
+        v-model="params.trainCode"
+        width="200px"
+      ></train-select-view>
+      <a-button type="primary" @click="handleQuery()">查询</a-button>
       <a-button type="primary" @click="onAdd">新增</a-button>
     </a-space>
   </p>
@@ -162,6 +166,10 @@ const columns = [
 
 const trains = ref([]);
 
+let params = ref({
+  trainCode: null
+});
+
 watch(
   () => trainStation.value.name,
   () => {
@@ -233,7 +241,8 @@ const handleQuery = (param) => {
     .get('/business/admin/train-station/query-list', {
       params: {
         page: param.page,
-        size: param.size
+        size: param.size,
+        trainCode: params.value.trainCode
       }
     })
     .then((response) => {
