@@ -41,21 +41,7 @@
       :wrapper-col="{ span: 20 }"
     >
       <a-form-item label="车次编号">
-        <!-- <a-input v-model:value="trainStation.trainCode" /> -->
-        <a-select
-          v-model:value="trainStation.trainCode"
-          show-search
-          :filterOption="filterTrainCodeOption"
-        >
-          <a-select-option
-            v-for="item in trains"
-            :key="item.code"
-            :value="item.code"
-            :label="item.code + item.start + item.end"
-          >
-            {{ item.code }} | {{ item.start }}~{{ item.end }}
-          </a-select-option>
-        </a-select>
+        <train-select-view v-model="trainStation.trainCode"></train-select-view>
       </a-form-item>
       <a-form-item label="站序">
         <a-input v-model:value="trainStation.index" />
@@ -99,6 +85,7 @@ import { ref, onMounted, watch } from 'vue';
 import { notification } from 'ant-design-vue';
 import { pinyin } from 'pinyin-pro';
 import axios from 'axios';
+import TrainSelectView from '@/components/train-select.vue';
 
 const visible = ref(false);
 let trainStation = ref({
@@ -170,14 +157,6 @@ const columns = [
 ];
 
 const trains = ref([]);
-
-/**
- * 车次下拉筛选框
- */
-const filterTrainCodeOption = (input, option) => {
-  console.log(input, option);
-  return option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0;
-};
 
 watch(
   () => trainStation.value.name,
@@ -274,24 +253,10 @@ const handleTableChange = (pagination) => {
   });
 };
 
-const querAll = () => {
-  axios.get('/business/admin/train/query-all').then((response) => {
-    let data = response.data;
-    if (data.success) {
-      console.log(data.content);
-      trains.value = data.content;
-    } else {
-      notification.error({ description: data.message });
-    }
-  });
-};
-
 onMounted(() => {
   handleQuery({
     page: 1,
     size: pagination.value.pageSize
   });
-
-  querAll();
 });
 </script>
