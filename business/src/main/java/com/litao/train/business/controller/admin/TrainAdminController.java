@@ -11,6 +11,8 @@ import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/admin/train")
 public class TrainAdminController {
@@ -28,6 +30,12 @@ public class TrainAdminController {
     public CommonResp<PageResp<TrainQueryResp>> queryList(@Valid TrainQueryReq req) {
         PageResp<TrainQueryResp> list = trainService.queryList(req);
         return new CommonResp<>(list);
+    }
+
+    @GetMapping("/query-all")
+    public CommonResp<List<TrainQueryResp>> queryList(){
+        List<TrainQueryResp> resps = trainService.queryAll();
+        return new CommonResp<List<TrainQueryResp>>(resps);
     }
 
     @DeleteMapping("/delete/{id}")
