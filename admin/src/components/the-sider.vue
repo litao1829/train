@@ -35,6 +35,12 @@
           火车车站管理
         </router-link>
       </a-menu-item>
+      <a-menu-item key="/train-carriage">
+        <router-link to="/train-carriage">
+          <rocket-outlined />
+          火车车厢管理
+        </router-link>
+      </a-menu-item>
     </a-menu>
   </a-layout-sider>
 </template>
