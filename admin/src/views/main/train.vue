@@ -66,7 +66,10 @@
         </a-select>
       </a-form-item>
       <a-form-item label="始发站">
-        <a-input v-model:value="train.start" />
+        <station-select-view
+          v-model="train.start"
+          width="200px"
+        ></station-select-view>
       </a-form-item>
       <a-form-item label="始发站拼音">
         <a-input v-model:value="train.startPinyin" disabled />
@@ -79,7 +82,10 @@
         />
       </a-form-item>
       <a-form-item label="终点站">
-        <a-input v-model:value="train.end" />
+        <station-select-view
+          v-model="train.end"
+          width="200px"
+        ></station-select-view>
       </a-form-item>
       <a-form-item label="终点站拼音">
         <a-input v-model:value="train.endPinyin" disabled />
@@ -100,6 +106,7 @@ import { ref, onMounted, watch } from 'vue';
 import { notification } from 'ant-design-vue';
 import { pinyin } from 'pinyin-pro';
 import axios from 'axios';
+import StationSelectView from '@/components/station-select.vue';
 
 const TRAIN_TYPE_ARRAY = window.TRAIN_TYPE_ARRAY;
 const visible = ref(false);

@@ -80,7 +80,7 @@ const filterNameOption = (input, option) => {
 const onChange = (value) => {
   emit('update:modelValue', value);
   let station = stations.value.filter((item) => item.code === value)[0];
-  if (Tool.isEmpty(train)) {
+  if (Tool.isEmpty(station)) {
     station = {};
   }
   emit('change', station);

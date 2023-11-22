@@ -10,6 +10,7 @@ import com.github.pagehelper.PageInfo;
 import com.litao.exception.BusinessException;
 import com.litao.exception.BusinessExceptionEnum;
 import com.litao.resp.PageResp;
+import com.litao.train.business.enums.SeatColEnum;
 import com.litao.util.SnowUtil;
 import com.litao.train.business.domain.TrainCarriage;
 import com.litao.train.business.domain.TrainCarriageExample;
@@ -34,6 +35,12 @@ public class TrainCarriageService {
 
     public void save(TrainCarriageSaveReq req) {
         DateTime now = DateTime.now();
+
+        //自动计算出列数和座位总数
+        List<SeatColEnum> colsByType = SeatColEnum.getColsByType(req.getSeatType());
+        req.setColCount(colsByType.size());
+        req.setSeatCount(req.getColCount()* req.getRowCount());
+
         TrainCarriage trainCarriage = BeanUtil.copyProperties(req, TrainCarriage.class);
         if (ObjectUtil.isNull(trainCarriage.getId())) {
             //保存前限校验一遍是否存在
