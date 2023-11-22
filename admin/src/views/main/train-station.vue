@@ -50,7 +50,7 @@
         <a-input v-model:value="trainStation.name" />
       </a-form-item>
       <a-form-item label="站名拼音">
-        <a-input v-model:value="trainStation.namePinyin" />
+        <a-input v-model:value="trainStation.namePinyin" disabled />
       </a-form-item>
       <a-form-item label="进站时间">
         <a-time-picker
@@ -81,8 +81,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { notification } from 'ant-design-vue';
+import { pinyin } from 'pinyin-pro';
 import axios from 'axios';
 
 const visible = ref(false);
@@ -153,6 +154,20 @@ const columns = [
     dataIndex: 'operation'
   }
 ];
+
+watch(
+  () => trainStation.value.name,
+  () => {
+    if (Tool.isNotEmpty(trainStation.value.name)) {
+      trainStation.value.namePinyin = pinyin(trainStation.value.name, {
+        toneType: 'none'
+      }).replaceAll(' ', '');
+    } else {
+      trainStation.value.namePinyin = '';
+    }
+  },
+  { immediate: true }
+);
 
 const onAdd = () => {
   trainStation.value = {};
