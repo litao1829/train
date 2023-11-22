@@ -23,6 +23,18 @@
           车站管理
         </router-link>
       </a-menu-item>
+      <a-menu-item key="/train">
+        <router-link to="/train">
+          <car-outlined />
+          火车管理
+        </router-link>
+      </a-menu-item>
+      <a-menu-item key="/train-station">
+        <router-link to="/train-station">
+          <wallet-outlined />
+          火车车站管理
+        </router-link>
+      </a-menu-item>
     </a-menu>
   </a-layout-sider>
 </template>

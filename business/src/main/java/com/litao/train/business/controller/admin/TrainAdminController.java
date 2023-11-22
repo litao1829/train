@@ -1,5 +1,6 @@
 package com.litao.train.business.controller.admin;
 
+import com.litao.context.LoginMemberContext;
 import com.litao.resp.CommonResp;
 import com.litao.resp.PageResp;
 import com.litao.train.business.req.TrainQueryReq;
