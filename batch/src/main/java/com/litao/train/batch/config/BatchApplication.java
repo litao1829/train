@@ -1,5 +1,4 @@
-package com.litao.train.member.config;
-
+package com.litao.train.batch.config;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
@@ -9,19 +8,20 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 
-
 @SpringBootApplication
 @ComponentScan("com.litao")
 @MapperScan("com.litao.train.*.mapper")
-public class MemberApplication {
+public class BatchApplication {
 
-    private static final Logger LOG= LoggerFactory.getLogger(MemberApplication.class);
+    private static final Logger LOG= LoggerFactory.getLogger(BatchApplication.class);
 
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(MemberApplication.class);
+
+        SpringApplication app = new SpringApplication(BatchApplication.class);
         Environment env = app.run(args).getEnvironment();
         LOG.info("启动成功！！");
         LOG.info("测试地址：\t http://127.0.0.1:{}{}/hello",env.getProperty("server.port"),
                 env.getProperty("server.servlet.context-path"));
+
     }
 }
