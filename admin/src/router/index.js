@@ -10,6 +10,15 @@ const routes = [
         component: () => import('../views/main/welcome.vue')
       },
       {
+        path: 'business/',
+        children: [
+          {
+            path: 'daily-train',
+            component: () => import('../views/main/business/daily-train.vue')
+          }
+        ]
+      },
+      {
         path: 'about',
         component: () => import('../views/main/about.vue')
       },
