@@ -28,9 +28,9 @@ public class DailyTrainJob implements Job {
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         MDC.put("LOG_ID",System.currentTimeMillis()+ RandomUtil.randomString(3));
-        LOG.info("生成每日车次定时任务开始");
+        LOG.info("生成15天后的车次定时任务开始");
         Date date=new Date();
-        DateTime offset = DateUtil.offsetDay(date, 5);
+        DateTime offset = DateUtil.offsetDay(date, 15);
         Date offsetDay=offset.toJdkDate();
         CommonResp<Object> objectCommonResp = businessFeign.genDaily(offsetDay);
         LOG.info("commonRest:{}",objectCommonResp);

@@ -35,7 +35,7 @@ const routes = [
       },
       {
         path: 'about',
-        component: () => import('../views/main/about.vue')
+        component: () => import('../views/main/business/progammer.vue')
       },
       {
         path: 'base/',
