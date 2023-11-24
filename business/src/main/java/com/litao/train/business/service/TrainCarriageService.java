@@ -3,6 +3,7 @@ package com.litao.train.business.service;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
@@ -10,7 +11,9 @@ import com.github.pagehelper.PageInfo;
 import com.litao.exception.BusinessException;
 import com.litao.exception.BusinessExceptionEnum;
 import com.litao.resp.PageResp;
+import com.litao.train.business.domain.DailyTrainCarriageExample;
 import com.litao.train.business.enums.SeatColEnum;
+import com.litao.train.business.mapper.DailyTrainCarriageMapper;
 import com.litao.util.SnowUtil;
 import com.litao.train.business.domain.TrainCarriage;
 import com.litao.train.business.domain.TrainCarriageExample;
@@ -23,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -107,5 +111,7 @@ public class TrainCarriageService {
             return null;
         }
     }
+
+
 
 }

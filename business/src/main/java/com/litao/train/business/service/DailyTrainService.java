@@ -8,10 +8,9 @@ import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.litao.resp.PageResp;
-import com.litao.train.business.domain.Train;
+import com.litao.train.business.domain.*;
+import com.litao.train.business.mapper.DailyTrainCarriageMapper;
 import com.litao.util.SnowUtil;
-import com.litao.train.business.domain.DailyTrain;
-import com.litao.train.business.domain.DailyTrainExample;
 import com.litao.train.business.mapper.DailyTrainMapper;
 import com.litao.train.business.req.DailyTrainQueryReq;
 import com.litao.train.business.req.DailyTrainSaveReq;
@@ -37,6 +36,9 @@ public class DailyTrainService {
 
     @Resource
     private TrainService trainService;
+
+    @Resource
+    private DailyTrainCarriageService dailyTrainCarriageService;
 
     public void save(DailyTrainSaveReq req) {
         DateTime now = DateTime.now();
@@ -112,6 +114,13 @@ public class DailyTrainService {
         //生成该车次的车站数据
         dailyTrainStationService.genDaily(date,train.getCode());
         LOG.info("生成日期【{}】车次【{}】的消息结束", DateUtil.formatDate(date),train.getCode());
+
+
+        //生成每日车厢数据
+        dailyTrainCarriageService.genDaily(date,train.getCode());
+        LOG.info("生成日期【{}】车次【{}】的车厢信息结束",DateUtil.formatDate(date),train.getCode());
+
+
     }
 
 
