@@ -30,7 +30,7 @@ public class DailyTrainJob implements Job {
         MDC.put("LOG_ID",System.currentTimeMillis()+ RandomUtil.randomString(3));
         LOG.info("生成15天后的车次定时任务开始");
         Date date=new Date();
-        DateTime offset = DateUtil.offsetDay(date, 15);
+        DateTime offset = DateUtil.offsetDay(date, 17);
         Date offsetDay=offset.toJdkDate();
         CommonResp<Object> objectCommonResp = businessFeign.genDaily(offsetDay);
         LOG.info("commonRest:{}",objectCommonResp);
