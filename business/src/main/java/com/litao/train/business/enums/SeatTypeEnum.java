@@ -13,8 +13,8 @@ import java.util.List;
 public enum SeatTypeEnum {
     YDZ("1","一等座",new BigDecimal("0.4")),
     EDZ("2","二等座",new BigDecimal("0.3")),
-    PW("3","软卧",new BigDecimal("0.6")),
-    YM("4","硬卧",new BigDecimal("0.5"));
+    RW("3","软卧",new BigDecimal("0.6")),
+    YW("4","硬卧",new BigDecimal("0.5"));
 
     private String code;
 
