@@ -68,4 +68,8 @@ public class ConfirmOrderService {
         confirmOrderMapper.deleteByPrimaryKey(id);
     }
 
+
+    public void doConfirm(ConfirmOrderDoReq req){
+
+    }
 }
