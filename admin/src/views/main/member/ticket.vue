@@ -15,7 +15,9 @@
       <template v-if="column.dataIndex === 'operation'"> </template>
       <template v-else-if="column.dataIndex === 'col'">
         <span v-for="item in SEAT_COL_ARRAY" :key="item.code">
-          <span v-if="item.code === record.col">
+          <span
+            v-if="item.code === record.col && item.type === record.seatType"
+          >
             {{ item.desc }}
           </span>
         </span>
@@ -66,16 +68,16 @@ const pagination = ref({
 });
 let loading = ref(false);
 const columns = [
-  {
-    title: '会员id',
-    dataIndex: 'memberId',
-    key: 'memberId'
-  },
-  {
-    title: '乘客id',
-    dataIndex: 'passengerId',
-    key: 'passengerId'
-  },
+  // {
+  //   title: '会员id',
+  //   dataIndex: 'memberId',
+  //   key: 'memberId'
+  // },
+  // {
+  //   title: '乘客id',
+  //   dataIndex: 'passengerId',
+  //   key: 'passengerId'
+  // },
   {
     title: '乘客姓名',
     dataIndex: 'passengerName',
@@ -151,6 +153,7 @@ const handleQuery = (param) => {
     .then((response) => {
       loading.value = false;
       let data = response.data;
+      console.log(data);
       if (data.success) {
         tickets.value = data.content.list;
         // 设置分页控件的值
