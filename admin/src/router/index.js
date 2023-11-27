@@ -10,6 +10,15 @@ const routes = [
         component: () => import('../views/main/welcome.vue')
       },
       {
+        path: 'member/',
+        children: [
+          {
+            path: 'ticket',
+            component: () => import('../views/main/member/ticket.vue')
+          }
+        ]
+      },
+      {
         path: 'business/',
         children: [
           {
