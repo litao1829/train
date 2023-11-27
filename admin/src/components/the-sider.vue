@@ -49,6 +49,13 @@
             余票信息
           </router-link>
         </a-menu-item>
+
+        <a-menu-item key="/business/confirm-order">
+          <router-link to="/business/confirm-order">
+            <user-outlined />
+            订单信息
+          </router-link>
+        </a-menu-item>
       </a-sub-menu>
       <a-sub-menu key="batch">
         <template #title>
