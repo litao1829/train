@@ -95,7 +95,7 @@ public class DailyTrainSeatService {
 
         //思考下，这段代码的作用
         List<TrainStation> trainStations = trainStationService.selectByTrainCode(trainCode);
-        String sell = StrUtil.fillBefore("", '0', trainStations.size() - 1);
+        String sell = StrUtil.fillBefore("", '0', trainStations.size());
 
         //查询某车次所有座位信息
         List<TrainSeat> trainSeats = trainSeatService.selectByTrainCode(trainCode);
