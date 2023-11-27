@@ -34,3 +34,12 @@ SEAT_COL_ARRAY = [
   { code: 'D', desc: 'D' },
   { code: 'F', desc: 'F' }
 ];
+
+CONFIRM_ORDER_STATUS_ARRAY = [
+  { code: 'I', desc: '初始' },
+  { code: 'P', desc: '处理中' },
+  { code: 'S', desc: '成功' },
+  { code: 'F', desc: '失败' },
+  { code: 'E', desc: '无票' },
+  { code: 'C', desc: '取消' }
+];
