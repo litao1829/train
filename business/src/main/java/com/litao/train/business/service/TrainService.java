@@ -20,6 +20,7 @@ import jakarta.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -77,11 +78,18 @@ public class TrainService {
     }
 
 
+//    public List<TrainQueryResp> queryAll(){
+//        TrainExample trainExample=new TrainExample();
+//        trainExample.setOrderByClause("code desc");
+//        List<Train> trains = trainMapper.selectByExample(trainExample);
+//        return BeanUtil.copyToList(trains,TrainQueryResp.class);
+//    }
+
+    @Transactional
     public List<TrainQueryResp> queryAll(){
-        TrainExample trainExample=new TrainExample();
-        trainExample.setOrderByClause("code desc");
-        List<Train> trains = trainMapper.selectByExample(trainExample);
-        return BeanUtil.copyToList(trains,TrainQueryResp.class);
+        List<Train> trains = selectAll();
+        trains=selectAll();
+        return BeanUtil.copyToList(trains, TrainQueryResp.class);
     }
 
     private Train selectByUnique(String code){
