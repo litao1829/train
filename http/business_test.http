@@ -13,10 +13,14 @@ Accept: application/json
 GET http://localhost:8000/business/admin/train/gen-seat/G1
 
 ###
-GET http://localhost:8000/business/admin/daily-train-ticket/query-list?page=1&size=5&trainCode=G1&start=上海&end=北京
+GET http://localhost:8000/business/admin/daily-train-ticket/query-list?page=1&size=5&trainCode=G1&start=南京站&end=天津站
 Content-Type: application/json
 
 ###
 
-GET http://localhost:8000/business/admin/daily-train-ticket/query-list2?page=1&size=5&trainCode=G1&start=上海&end=北京
+GET http://localhost:8000/business/admin/daily-train-ticket/query-list2?page=1&size=5&trainCode=G1&start=南京站&end=天津站
+Content-Type: application/json
+
+###
+GET http://localhost:8000/business/admin/daily-train-ticket/query-list3?page=1&size=5&trainCode=G1&start=南京站&end=天津站
 Content-Type: application/json

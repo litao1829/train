@@ -148,7 +148,7 @@
       最终购票：{{ tickets }} 最终选座：{{ chooseSeatObj }}
     </div>
   </a-modal>
-  <a-modal
+  <!-- <a-modal
     v-model:visible="firstImageCodeModalVisible"
     :title="null"
     :footer="null"
@@ -191,7 +191,7 @@
     </div>
     <br />
     <a-button type="danger" @click="onCancelOrder">取消购票</a-button>
-  </a-modal>
+  </a-modal> -->
 </template>
 
 <script setup>
@@ -423,31 +423,31 @@ const handleOk = () => {
 
   console.log('最终购票：', tickets.value);
 
-     axios
-       .post("/business/confirm-order/do", {
-         dailyTrainTicketId: dailyTrainTicket.id,
-         date: dailyTrainTicket.date,
-         trainCode: dailyTrainTicket.trainCode,
-         start: dailyTrainTicket.start,
-         end: dailyTrainTicket.end,
-         tickets: tickets.value,
-        //  imageCodeToken: imageCodeToken.value,
-        //  imageCode: imageCode.value,
-        //  lineNumber: lineNumber.value,
-       })
-      .then((response) => {
-        let data = response.data;
-        if (data.success) {
-          notification.success({description: "下单成功！"});
-          // visible.value = false;
-          // imageCodeModalVisible.value = false;
-          // lineModalVisible.value = true;
-          // confirmOrderId.value = data.content;
-          // queryLineCount();
-        } else {
-          notification.error({ description: data.message });
-        }
-      });
+  axios
+    .post('/business/confirm-order/do', {
+      dailyTrainTicketId: dailyTrainTicket.id,
+      date: dailyTrainTicket.date,
+      trainCode: dailyTrainTicket.trainCode,
+      start: dailyTrainTicket.start,
+      end: dailyTrainTicket.end,
+      tickets: tickets.value
+      //  imageCodeToken: imageCodeToken.value,
+      //  imageCode: imageCode.value,
+      //  lineNumber: lineNumber.value,
+    })
+    .then((response) => {
+      let data = response.data;
+      if (data.success) {
+        notification.success({ description: '下单成功！' });
+        visible.value = false;
+        // imageCodeModalVisible.value = false;
+        // lineModalVisible.value = true;
+        // confirmOrderId.value = data.content;
+        // queryLineCount();
+      } else {
+        notification.error({ description: data.message });
+      }
+    });
 };
 
 /* ------------------- 定时查询订单状态 --------------------- */

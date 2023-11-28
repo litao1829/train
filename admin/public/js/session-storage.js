@@ -1,8 +1,11 @@
 // eslint-disable-next-line no-undef
+
+SESSION_ALL_TRAIN = 'SESSION_ALL_TRAIN';
+
 SessionStorage = {
   get: function (key) {
     var v = sessionStorage.getItem(key);
-    if (v && typeof v !== "undefined" && v !== "undefined") {
+    if (v && typeof v !== 'undefined' && v !== 'undefined') {
       return JSON.parse(v);
     }
   },
@@ -14,5 +17,5 @@ SessionStorage = {
   },
   clearAll: function () {
     sessionStorage.clear();
-  },
+  }
 };

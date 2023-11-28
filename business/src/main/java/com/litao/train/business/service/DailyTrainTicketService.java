@@ -200,4 +200,10 @@ public class DailyTrainTicketService {
             return null;
         }
     }
+
+    @Cacheable(value = "DailyTrainTicketService.queryList3")
+    public PageResp<DailyTrainTicketQueryResp> queryList3(DailyTrainTicketQueryReq req) {
+        LOG.info("测试缓存击穿");
+        return null;
+    }
 }

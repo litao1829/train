@@ -15,12 +15,17 @@ spring:
     redis:
       host: localhost
       port: 6379
+  cloud:
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: localhost:8080
   cache:
     type: redis
     redis:
       use-key-prefix: true
       key-prefix: train_cache_
-      cache-null-values: false
+      cache-null-values: true
       time-to-live: 60s
 
 mybatis:

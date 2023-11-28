@@ -12,7 +12,7 @@ import org.springframework.core.env.Environment;
 @SpringBootApplication
 @ComponentScan("com.litao")
 @MapperScan("com.litao.train.*.mapper")
-@EnableFeignClients("com.litao.train.*.feign")
+@EnableFeignClients("com.litao.train.batch.feign")
 public class BatchApplication {
 
     private static final Logger LOG= LoggerFactory.getLogger(BatchApplication.class);
