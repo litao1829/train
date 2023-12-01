@@ -7,6 +7,7 @@ import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.litao.resp.PageResp;
+import com.litao.train.business.mapper.SkTokenMapperCust;
 import com.litao.util.SnowUtil;
 import com.litao.train.business.domain.SkToken;
 import com.litao.train.business.domain.SkTokenExample;
@@ -35,6 +36,9 @@ public class SkTokenService {
 
     @Resource
     private SkTokenMapper skTokenMapper;
+
+    @Resource
+    private SkTokenMapperCust skTokenMapperCust;
 
     public void save(SkTokenSaveReq req) {
         DateTime now = DateTime.now();
@@ -104,5 +108,15 @@ public class SkTokenService {
         skToken.setCount(count);
 
         skTokenMapper.insert(skToken);
+    }
+
+    /**
+     * 获取令牌
+     */
+    public boolean validSkToken(Date date,String trainCode,Long memeberId){
+        LOG.info("会员【{}】获取日期【{}】车次【{}】的令牌开始",memeberId,DateUtil.formatDate(date),trainCode);
+        //令牌约等于库存，令牌没有了，就不再买票，不需要在进入购票主流程去判断库存，判断令牌比判断库存高效
+        int updateCount = skTokenMapperCust.decrease(date, trainCode);
+        return updateCount>0;
     }
 }
