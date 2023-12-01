@@ -8,6 +8,8 @@ import com.litao.train.business.resp.ConfirmOrderQueryResp;
 import com.litao.train.business.service.ConfirmOrderService;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,6 +18,8 @@ public class ConfirmOrderAdminController {
 
     @Resource
     private ConfirmOrderService confirmOrderService;
+
+
 
     @PostMapping("/save")
     public CommonResp<Object> save(@Valid @RequestBody ConfirmOrderDoReq req) {

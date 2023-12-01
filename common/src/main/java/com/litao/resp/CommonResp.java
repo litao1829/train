@@ -55,4 +55,10 @@ public class CommonResp<T> {
                 ", content=" + content +
                 '}';
     }
+
+    public CommonResp(boolean success, String message, T content) {
+        this.success = success;
+        this.message = message;
+        this.content = content;
+    }
 }
