@@ -37,3 +37,8 @@ mybatis:
 logging:
   level:
     com.litao.train.business.mapper: trace
+
+rocketmq:
+  name-server: http://43.137.12.232:9876
+  producer:
+    group: litao

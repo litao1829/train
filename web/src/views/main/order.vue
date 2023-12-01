@@ -421,6 +421,7 @@ const handleOk = () => {
       if (data.success) {
         notification.success({ description: '下单成功！' });
         visible.value = false;
+        imageCodeModalVisible.value = false;
         // imageCodeModalVisible.value = false;
         // lineModalVisible.value = true;
         // confirmOrderId.value = data.content;

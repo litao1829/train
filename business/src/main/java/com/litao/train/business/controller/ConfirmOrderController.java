@@ -2,9 +2,12 @@ package com.litao.train.business.controller;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
+import com.litao.exception.BusinessExceptionEnum;
 import com.litao.resp.CommonResp;
 import com.litao.train.business.domain.ConfirmOrder;
 import com.litao.train.business.req.ConfirmOrderDoReq;
+import com.litao.train.business.service.BeforeConfirmOrderService;
 import com.litao.train.business.service.ConfirmOrderService;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
@@ -28,6 +31,9 @@ public class ConfirmOrderController {
 
 
     @Resource
+    private BeforeConfirmOrderService beforeConfirmOrderService;
+
+    @Resource
     private ConfirmOrderService confirmOrderService;
 
     @Autowired
@@ -38,7 +44,7 @@ public class ConfirmOrderController {
     @SentinelResource(value = "confirmOrderDo", blockHandler = "doConfirmBlock")
     @PostMapping("/do")
     public CommonResp<Object> doConfirm(@Valid @RequestBody ConfirmOrderDoReq req){
-        //图形验证码校验
+//        //图形验证码校验
         String imageCodeToken= req.getImageCodeToken();
         String imageCode= req.getImageCode();
         String imageCodeRedis = redisTemplate.opsForValue().get(imageCodeToken);
@@ -53,9 +59,24 @@ public class ConfirmOrderController {
             // 验证通过后，移除验证码
             redisTemplate.delete(imageCodeToken);
         }
-        confirmOrderService.doConfirm(req);
+        beforeConfirmOrderService.beforeDoConfirm(req);
+//        confirmOrderService.doConfirm(req);
         return new CommonResp<>();
     }
 
+    /**
+     * 降级方法，需包含限流方法的所有参数和BlockException参数，且返回值要保持一致
+     *
+     * @param req
+     * @param e
+     */
+    public CommonResp<Object> doConfirmBlock(ConfirmOrderDoReq req, BlockException e) {
+        LOG.info("ConfirmOrderController购票请求被限流：{}", req);
+        // throw new BusinessException(BusinessExceptionEnum.CONFIRM_ORDER_FLOW_EXCEPTION);
+        CommonResp<Object> commonResp = new CommonResp<>();
+        commonResp.setSuccess(false);
+        commonResp.setMessage(BusinessExceptionEnum.CONFIRM_ORDER_FLOW_EXCEPTION.getDesc());
+        return commonResp;
 
+    }
 }

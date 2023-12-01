@@ -121,13 +121,13 @@ public class ConfirmOrderService {
     public  void doConfirm(ConfirmOrderDoReq req){
 
         // 校验令牌余量
-        boolean validSkToken = skTokenService.validSkToken(req.getDate(), req.getTrainCode(), LoginMemberContext.getId());
-        if (validSkToken) {
-            LOG.info("令牌校验通过");
-        } else {
-            LOG.info("令牌校验不通过");
-            throw new BusinessException(BusinessExceptionEnum.CONFIRM_ORDER_SK_TOKEN_FAIL);
-        }
+//        boolean validSkToken = skTokenService.validSkToken(req.getDate(), req.getTrainCode(), LoginMemberContext.getId());
+//        if (validSkToken) {
+//            LOG.info("令牌校验通过");
+//        } else {
+//            LOG.info("令牌校验不通过");
+//            throw new BusinessException(BusinessExceptionEnum.CONFIRM_ORDER_SK_TOKEN_FAIL);
+//        }
 
         // 抢锁购票
         String lockKey = DateUtil.formatDate(req.getDate()) + "-" + req.getTrainCode();
@@ -149,20 +149,39 @@ public class ConfirmOrderService {
         List<ConfirmOrderTicketReq> tickets = req.getTickets();
 
         //保存确认订单，状态初始
-        DateTime now=DateTime.now();
-        ConfirmOrder confirmOrder=new ConfirmOrder();
-        confirmOrder.setId(SnowUtil.getSnowflakeNextId());
-        confirmOrder.setCreateTime(now);
-        confirmOrder.setUpdateTime(now);
-        confirmOrder.setMemberId(LoginMemberContext.getId());
-        confirmOrder.setDate(date);
-        confirmOrder.setTrainCode(trainCode);
-        confirmOrder.setStart(start);
-        confirmOrder.setEnd(end);
-        confirmOrder.setDailyTrainTicketId(req.getDailyTrainTicketId());
-        confirmOrder.setStatus(ConfirmOrderStatusEnum.INIT.getCode());
-        confirmOrder.setTickets(JSON.toJSONString(req.getTickets()));
-        confirmOrderMapper.insert(confirmOrder);
+//        DateTime now=DateTime.now();
+//        ConfirmOrder confirmOrder=new ConfirmOrder();
+//        confirmOrder.setId(SnowUtil.getSnowflakeNextId());
+//        confirmOrder.setCreateTime(now);
+//        confirmOrder.setUpdateTime(now);
+//        confirmOrder.setMemberId(LoginMemberContext.getId());
+//        confirmOrder.setDate(date);
+//        confirmOrder.setTrainCode(trainCode);
+//        confirmOrder.setStart(start);
+//        confirmOrder.setEnd(end);
+//        confirmOrder.setDailyTrainTicketId(req.getDailyTrainTicketId());
+//        confirmOrder.setStatus(ConfirmOrderStatusEnum.INIT.getCode());
+//        confirmOrder.setTickets(JSON.toJSONString(req.getTickets()));
+//        confirmOrderMapper.insert(confirmOrder);
+
+
+        // 从数据库里查出订单
+        ConfirmOrderExample confirmOrderExample = new ConfirmOrderExample();
+        confirmOrderExample.setOrderByClause("id asc");
+        ConfirmOrderExample.Criteria criteria = confirmOrderExample.createCriteria();
+        criteria.andDateEqualTo(req.getDate())
+                .andTrainCodeEqualTo(req.getTrainCode())
+                .andMemberIdEqualTo(req.getMemberId())
+                .andStatusEqualTo(ConfirmOrderStatusEnum.INIT.getCode());
+        List<ConfirmOrder> list = confirmOrderMapper.selectByExampleWithBLOBs(confirmOrderExample);
+        ConfirmOrder confirmOrder;
+        if (CollUtil.isEmpty(list)) {
+            LOG.info("找不到原始订单，结束");
+            return;
+        } else {
+            LOG.info("本次处理{}条确认订单", list.size());
+            confirmOrder = list.get(0);
+        }
 
         //查出余票记录，需要得到真实的库存
         DailyTrainTicket dailyTrainTicket= dailyTrainTicketService.selectByUnique(date,trainCode,start,end);
@@ -235,7 +254,21 @@ public class ConfirmOrderService {
             }
         }
         LOG.info("最终选座：{}", finalSeatList);
-        afterConfirmOrderService.afterDoConfirm(dailyTrainTicket,finalSeatList,tickets,confirmOrder);
+
+
+        // 选中座位后事务处理：
+        // 座位表修改售卖情况sell；
+        // 余票详情表修改余票；
+        // 为会员增加购票记录
+        // 更新确认订单为成功
+        try {
+            afterConfirmOrderService.afterDoConfirm(dailyTrainTicket,finalSeatList,tickets,confirmOrder);
+
+        } catch (Exception e) {
+            LOG.error("保存购票信息失败", e);
+            throw new BusinessException(BusinessExceptionEnum.CONFIRM_ORDER_EXCEPTION);
+        }
+
 
     }
 
