@@ -125,7 +125,7 @@
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
-	&quot;dailyTrainTicketId&quot;:1729468635057098752,&#xd;
+	&quot;dailyTrainTicketId&quot;:1730421558532509696,&#xd;
 	&quot;date&quot;:1702569600000,&#xd;
 	&quot;end&quot;:&quot;天津站&quot;,&#xd;
 	&quot;start&quot;:&quot;徐州站&quot;,&#xd;
@@ -168,7 +168,7 @@
               </elementProp>
               <elementProp name="" elementType="Header">
                 <stringProp name="Header.name">token</stringProp>
-                <stringProp name="Header.value">eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE3MDExNjk5MTAsIm1vYmlsZSI6IjEzOTUxOTA1MTcxIiwiaWQiOjEsImV4cCI6MTcwMTIxMzExMCwiaWF0IjoxNzAxMTY5OTEwfQ.1GWLhxMKUJcPZUpksfewC_0_y0hVDxGD9wAARJKDoxg</stringProp>
+                <stringProp name="Header.value">eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE3MDEzOTg5MDMsIm1vYmlsZSI6IjEzOTUxOTA1MTcxIiwiaWQiOjEsImV4cCI6MTcwMTQ0MjEwMywiaWF0IjoxNzAxMzk4OTAzfQ.zHl0-x6k_YRpwknjrB2OrxZpqq-p8BDRvIm3OLhoJMw</stringProp>
               </elementProp>
             </collectionProp>
           </HeaderManager>
