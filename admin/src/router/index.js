@@ -52,6 +52,10 @@ const routes = [
           {
             path: 'sk-token',
             component: () => import('../views/main/business/sk-token.vue')
+          },
+          {
+            path: 'app',
+            component: () => import('../views/main/business/app.vue')
           }
         ]
       },

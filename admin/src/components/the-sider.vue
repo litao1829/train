@@ -77,6 +77,13 @@
             令牌余量
           </router-link>
         </a-menu-item>
+
+        <a-menu-item key="/business/app">
+          <router-link to="/business/app">
+            <user-outlined />
+            App管理
+          </router-link>
+        </a-menu-item>
       </a-sub-menu>
       <a-sub-menu key="batch">
         <template #title>
