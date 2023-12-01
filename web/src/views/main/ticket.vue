@@ -9,6 +9,7 @@
         v-model:value="params.date"
         valueFormat="YYYY-MM-DD"
         placeholder="请选择日期"
+        :disabled-date="disabledDate"
       ></a-date-picker>
       <station-select-view
         v-model="params.start"
@@ -31,7 +32,12 @@
   >
     <template #bodyCell="{ column, record }">
       <template v-if="column.dataIndex === 'operation'">
-        <a-button type="primary" @click="toOrder(record)">预订</a-button>
+        <a-button
+          type="primary"
+          @click="toOrder(record)"
+          :disabled="isExpire(record)"
+          >{{ isExpire(record) ? '过期' : '预定' }}</a-button
+        >
         <router-link
           :to="{
             path: '/seat',
@@ -261,6 +267,28 @@ const onDelete = (record) => {
         notification.error({ description: data.message });
       }
     });
+};
+
+// 不能选择今天以前及两周以后的日期
+const disabledDate = (current) => {
+  return (
+    current &&
+    (current <= dayjs().add(-1, 'day') || current > dayjs().add(14, 'day'))
+  );
+};
+
+// 判断是否过期
+const isExpire = (record) => {
+  // 标准时间：2000/01/01 00:00:00
+  let startDateTimeString =
+    record.date.replace(/-/g, '/') + ' ' + record.startTime;
+  let startDateTime = new Date(startDateTimeString);
+
+  //当前时间
+  let now = new Date();
+
+  console.log(startDateTime);
+  return now.valueOf() >= startDateTime.valueOf();
 };
 
 const handleOk = () => {
