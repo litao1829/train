@@ -20,6 +20,7 @@ spring:
       transport:
         port: 8719
         dashboard: localhost:8080
+
   cache:
     type: redis
     redis:

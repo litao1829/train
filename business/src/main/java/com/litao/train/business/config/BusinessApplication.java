@@ -1,5 +1,13 @@
 package com.litao.train.business.config;
 
+import com.alibaba.csp.sentinel.slots.block.RuleConstant;
+import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
+import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
+import com.github.javafaker.Faker;
+import com.litao.train.business.domain.Student;
+import com.litao.train.business.mapper.StudentMapper;
+import com.litao.util.SnowUtil;
+import jakarta.annotation.Resource;
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +18,11 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Random;
+
 @SpringBootApplication
 @ComponentScan("com.litao")
 @MapperScan("com.litao.train.*.mapper")
@@ -19,6 +32,8 @@ public class BusinessApplication {
 
     private static final Logger LOG= LoggerFactory.getLogger(BusinessApplication.class);
 
+
+
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(BusinessApplication.class);
         Environment env = app.run(args).getEnvironment();
@@ -26,5 +41,21 @@ public class BusinessApplication {
         LOG.info("测试地址：\t http://127.0.0.1:{}{}/hello",env.getProperty("server.port"),
                 env.getProperty("server.servlet.context-path"));
 
+        //限流规则
+//        initFlowRules();
+//        LOG.info("已定义限流规则");
+
+
     }
+
+//    private static void  initFlowRules(){
+//        List<FlowRule> rules=new ArrayList<>();
+//        FlowRule rule=new FlowRule();
+//        rule.setGrade(RuleConstant.FLOW_GRADE_QPS);
+//        rule.setCount(1);
+//        rules.add(rule);
+//        FlowRuleManager.loadRules(rules);
+//    }
+
+
 }

@@ -70,6 +70,13 @@
             订单信息
           </router-link>
         </a-menu-item>
+
+        <a-menu-item key="/business/sk-token">
+          <router-link to="/business/sk-token">
+            <user-outlined />
+            令牌余量
+          </router-link>
+        </a-menu-item>
       </a-sub-menu>
       <a-sub-menu key="batch">
         <template #title>
