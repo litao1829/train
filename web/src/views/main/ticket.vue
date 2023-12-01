@@ -32,7 +32,10 @@
     <template #bodyCell="{ column, record }">
       <template v-if="column.dataIndex === 'operation'">
         <a-button type="primary" @click="toOrder(record)">预订</a-button>
-        <a-button type="primary" @click="showStation(record)"
+        <a-button
+          type="primary"
+          @click="showStation(record)"
+          style="margin-left: 10px"
           >途径车站</a-button
         >
       </template>
